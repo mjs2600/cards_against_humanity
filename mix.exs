@@ -26,6 +26,7 @@ defmodule CardsAgainstHumanity.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:jsex, "~> 2.0.0"}]
+    [{:jsex, "~> 2.0.0"},
+     {:exactor, "~> 0.4.0"}]
   end
 end
