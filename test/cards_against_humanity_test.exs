@@ -5,14 +5,11 @@ defmodule CardsAgainstHumanityTest do
   test "creating a deck" do
     deck_json = "[{'cardType': 'A', 'text': 'Test answer.'}, {'cardType': 'Q', 'text': 'Test question.'}]"
 
-    deck = deck_json
+    deck_pid = deck_json
     |> Deck.build
 
-    question_card = deck.question_cards
-    |> List.first
-
-    answer_card = deck.answer_cards
-    |> List.first
+    question_card = Deck.get_question_card(deck_pid)
+    answer_card = Deck.get_answer_card(deck_pid)
 
     assert question_card.text == "Test question."
     assert answer_card.text == "Test answer."
