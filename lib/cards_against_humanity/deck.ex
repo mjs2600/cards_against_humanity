@@ -11,6 +11,7 @@ defmodule CardsAgainstHumanity.Deck do
 
     {question_cards, answer_cards} = data
     |> Stream.map(&Card.build(&1))
+    |> Enum.shuffle
     |> Enum.partition(&question_card?/1)
 
     deck = %CardsAgainstHumanity.Deck{question_cards: question_cards, answer_cards: answer_cards}
