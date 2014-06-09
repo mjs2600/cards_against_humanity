@@ -4,7 +4,7 @@ defmodule CardsAgainstHumanity.Mixfile do
   def project do
     [app: :cards_against_humanity,
      version: "0.0.1",
-     elixir: "~> 0.13.3",
+     elixir: "~> 0.14.0",
      deps: deps]
   end
 
@@ -27,6 +27,6 @@ defmodule CardsAgainstHumanity.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [{:jsex, "~> 2.0.0"},
-     {:exactor, "~> 0.4.0"}]
+     {:exactor, "~> 0.5.0"}]
   end
 end
