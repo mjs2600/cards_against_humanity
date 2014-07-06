@@ -3,8 +3,8 @@ defmodule CardsAgainstHumanity.Mixfile do
 
   def project do
     [app: :cards_against_humanity,
-     version: "0.0.1",
-     elixir: "~> 0.14.0",
+     version: "0.1.0",
+     elixir: "~> 0.14.2",
      deps: deps]
   end
 
