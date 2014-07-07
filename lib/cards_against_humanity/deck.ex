@@ -1,10 +1,13 @@
 defmodule CardsAgainstHumanity.Deck do
   use ExActor.GenServer
-
   alias CardsAgainstHumanity.Card
-
   defstruct question_cards: [], answer_cards: []
 
+  def new do
+    "cards.json"
+    |> File.read!
+    |> build
+  end
 
   def build(json) do
     {:ok, data} = JSEX.decode(json)
@@ -15,9 +18,7 @@ defmodule CardsAgainstHumanity.Deck do
     |> Enum.partition(&question_card?/1)
 
     deck = %__MODULE__{question_cards: question_cards, answer_cards: answer_cards}
-    {:ok, pid} = __MODULE__.start(deck)
-
-    pid
+    start(deck)
   end
 
   defp question_card?(card) do
@@ -31,10 +32,18 @@ defmodule CardsAgainstHumanity.Deck do
     set_and_reply(new_deck, question_card)
   end
 
-  defcall get_answer_card, state: deck do
-    [answer_card|updated_answer_cards] = deck.answer_cards
+  def get_answer_card(pid) do
+    pid
+    |> get_answer_cards(1)
+    |> List.first
+  end
+
+  defcall get_answer_cards(count), state: deck do
+    answer_cards = Enum.take deck.answer_cards, count
+    updated_answer_cards = Enum.drop deck.answer_cards, count
     new_deck = %__MODULE__{deck | answer_cards: updated_answer_cards}
 
-    set_and_reply(new_deck, answer_card)
+    set_and_reply(new_deck, answer_cards)
   end
+
 end
